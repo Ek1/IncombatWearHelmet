@@ -1,12 +1,12 @@
 local IncombatWearHelmet = {
-	Title = "Incombat wear helmet",
+	Title = "Incombat wear helmet",	-- Not codereview friendly but enduser friendly version of the add-on's name
 	Author = "Ek1",
 	Description = "Shows helmet when entering combat and hides it when exiting combat",
-	Version = "190510",
+	Version = "190511",
 	License = "CC BY-SA: Creative Commons Attribution-ShareAlike 4.0 International License",
 	www = "https://github.com/Ek1/IncombatWearHelmet"
 }
-local ADDON = "IncombatWearHelmet"
+local ADDON = "IncombatWearHelmet"	-- Variable used to refer to this add-on. Codereview friendly.
 -- Funktion that changes the helmet visibility according to the combat state
 function IWH_combatState (_, Incombat)
 
@@ -35,7 +35,7 @@ end
 -- Variable to keep count how many loads have been done before it was this ones turn.
 local loadOrder = 0
 function IncombatWearHelmet.OnAddOnLoaded(event, addonName)
-  if addonName == IncombatWearHelmet.Title then
+  if addonName == ADDON then
 --	Seems it is our time so lets stop listening load trigger and initialize the add-on
 	d( IncombatWearHelmet.Title .. ": load order " ..  loadOrder .. ", starting initalization")
 	EVENT_MANAGER:UnregisterForEvent(ADDON, EVENT_ADD_ON_LOADED)
