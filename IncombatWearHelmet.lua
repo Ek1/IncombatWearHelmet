@@ -2,7 +2,7 @@ local IncombatWearHelmet = {
 	Title = "Incombat wear helmet",	-- Not codereview friendly but enduser friendly version of the add-on's name
 	Author = "Ek1",
 	Description = "Shows helmet when entering combat and hides it when exiting combat",
-	Version = "19.07.09",
+	Version = "19.07.12",
 	License = "CC BY-SA: Creative Commons Attribution-ShareAlike 4.0 International License",
 	www = "https://github.com/Ek1/IncombatWearHelmet"
 }
@@ -36,7 +36,7 @@ function IncombatWearHelmet.Initialize()
 end
 
 -- Variable to keep count how many loads have been done before it was this ones turn.
-local loadOrder = 0
+local loadOrder = 1
 function IncombatWearHelmet.OnAddOnLoaded(event, addonName)
   if addonName == ADDON then
 --	Seems it is our time so lets stop listening load trigger and initialize the add-on
