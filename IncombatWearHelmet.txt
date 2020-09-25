@@ -1,7 +1,7 @@
 ## Title: Incombat wear helmet
-## APIVersion: 100028 100029
+## APIVersion: 100032 100033
 ## Description: Shows helmet when entering combat and hides it when exiting combat
-## Version: 1.0.191022
+## Version: 32.20200926
 ## Author: Ek1
 ## License: CC BY-SA: Creative Commons Attribution-ShareAlike 4.0 International License
 

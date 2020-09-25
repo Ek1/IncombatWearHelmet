@@ -2,7 +2,7 @@ local IncombatWearHelmet = {
 	Title = "Incombat wear helmet",	-- Not codereview friendly but enduser friendly version of the add-on's name
 	Author = "Ek1",
 	Description = "Shows helmet when entering combat and hides it when exiting combat",
-	Version = "1.0.191022",
+	Version = "32.20200926",
 	License = "CC BY-SA: Creative Commons Attribution-ShareAlike 4.0 International License",
 	www = "https://github.com/Ek1/IncombatWearHelmet"
 }
@@ -11,7 +11,7 @@ local ADDON = "IncombatWearHelmet"	-- Variable used to refer to this add-on. Cod
 function IWH_combatState ()
 
 	local Incombat = IsUnitInCombat("player")
-	-- Presening hat for all 2^2 state evalutions
+	-- Prepearing hat for all 2^2 state evalutions
 	local activeHat = GetActiveCollectibleByType(COLLECTIBLE_CATEGORY_TYPE_HAT)
 
 	if Incombat then
@@ -31,8 +31,7 @@ end
 function IncombatWearHelmet.Initialize()
 	EVENT_MANAGER:RegisterForEvent(ADDON, EVENT_PLAYER_COMBAT_STATE, IWH_combatState)	-- listening when entering/exiting combat
 	EVENT_MANAGER:RegisterForEvent(ADDON, EVENT_ZONE_CHANGED, IWH_combatState)	-- listening when zone changes
-
-	d( IncombatWearHelmet.Title .. ": initalization done")
+	--d( IncombatWearHelmet.Title .. ": initalization done")
 end
 
 -- Variable to keep count how many loads have been done before it was this ones turn.
@@ -40,7 +39,7 @@ local loadOrder = 1
 function IncombatWearHelmet.OnAddOnLoaded(event, addonName)
   if addonName == ADDON then
 --	Seems it is our time so lets stop listening load trigger and initialize the add-on
-	d( IncombatWearHelmet.Title .. ": load order " ..  loadOrder .. ", starting initalization")
+	--d( IncombatWearHelmet.Title .. ": load order " ..  loadOrder .. ", starting initalization")
 	EVENT_MANAGER:UnregisterForEvent(ADDON, EVENT_ADD_ON_LOADED)
 	IncombatWearHelmet.Initialize()
   end
