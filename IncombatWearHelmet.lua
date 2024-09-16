@@ -7,6 +7,10 @@ local IncombatWearHelmet = {
 	www = "https://github.com/Ek1/IncombatWearHelmet"
 }
 local ADDON = "IncombatWearHelmet"	-- Variable used to refer to this add-on. Codereview friendly.
+
+-- hatswap with 
+-- GetCollectibleCooldownAndDuration(number collectibleId)
+
 -- Funktion that changes the helmet visibility according to the combat state
 function IWH_combatState (_, inCombatB)
 
@@ -29,6 +33,15 @@ function IWH_combatState (_, inCombatB)
 	end
 end
 
+-- 100033	EVENT_PLAYER_COMBAT_STATE (number eventCode, boolean inCombat)
+function IncombatWearHelmet.EVENT_PLAYER_COMBAT_STATE (_, inCombat)
+	IncombatWearHelmet.combatState(inCombat)
+end
+
+function IncombatWearHelmet.EVENT_ZONE_CHANGED (_, _)
+	IncombatWearHelmet.combatState(	IsUnitInCombat("player")	)
+end
+
 -- Lets fire up the add-on by registering for events
 function IncombatWearHelmet.Initialize()
 	EVENT_MANAGER:RegisterForEvent(ADDON, EVENT_PLAYER_COMBAT_STATE, IWH_combatState)	-- listening when entering/exiting combat
@@ -36,16 +49,12 @@ function IncombatWearHelmet.Initialize()
 	--d( IncombatWearHelmet.Title .. ": initalization done")
 end
 
--- Variable to keep count how many loads have been done before it was this ones turn.
-local loadOrder = 1
-function IncombatWearHelmet.OnAddOnLoaded(event, addonName)
-  if addonName == ADDON then
---	Seems it is our time so lets stop listening load trigger and initialize the add-on
-	--d( IncombatWearHelmet.Title .. ": load order " ..  loadOrder .. ", starting initalization")
-	EVENT_MANAGER:UnregisterForEvent(ADDON, EVENT_ADD_ON_LOADED)
-	IncombatWearHelmet.Initialize()
-  end
-  loadOrder = loadOrder+1
+-- Listener to know when its our turn.
+function IncombatWearHelmet.OnAddOnLoaded(_, addonName)
+  if addonName == ADDON then	-- Its our time so lets stop listening load trigger and initialize the add-on
+		EVENT_MANAGER:UnregisterForEvent(ADDON, EVENT_ADD_ON_LOADED)
+		IncombatWearHelmet.Initialize()
+	end
 end
 
 -- Registering the addon's initializing event when add-on's are loaded 
