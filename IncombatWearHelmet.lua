@@ -2,14 +2,11 @@ local IncombatWearHelmet = {
 	Title = "Incombat wear helmet",	-- Not codereview friendly but enduser friendly version of the add-on's name
 	Author = "Ek1",
 	Description = "Shows helmet when entering combat and hides it when exiting combat",
-	Version = "1043.240915",
+	Version = "1043.240917",
 	License = "CC BY-SA: Creative Commons Attribution-ShareAlike 4.0 International License",
 	www = "https://github.com/Ek1/IncombatWearHelmet"
 }
 local ADDON = "IncombatWearHelmet"	-- Variable used to refer to this add-on. Codereview friendly.
-
--- hatswap with 
--- GetCollectibleCooldownAndDuration(number collectibleId)
 
 -- Funktion that changes the helmet visibility according to the combat state
 function IWH_combatState (_, inCombatB)
@@ -22,13 +19,13 @@ function IWH_combatState (_, inCombatB)
 		if activeHat == 5002 then
 		-- Character is in combat and hiding helmet (activeHat=0) thus lets unhide it
 			UseCollectible(5002)
-			d( ADDON .. ": incombat and cooldownRemaining: " ..  cooldownRemaining)
+--			d( ADDON .. ": incombat and cooldownRemaining: " ..  cooldownRemaining)
 		end
 	else
 		if activeHat == 0 then
 		-- Character is not in combat and showing helmet (activeHat=5002) thus lets hide it
       UseCollectible(5002)
-			d( ADDON .. ": out pf combat and cooldownRemaining: " ..  cooldownRemaining)
+--			d( ADDON .. ": out pf combat and cooldownRemaining: " ..  cooldownRemaining)
 		end
 	end
 end
