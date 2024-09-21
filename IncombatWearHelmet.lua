@@ -31,8 +31,8 @@ function IWH_combatState (_, inCombatB)
 end
 
 -- 100033	EVENT_PLAYER_COMBAT_STATE (number eventCode, boolean inCombat)
-function IncombatWearHelmet.EVENT_PLAYER_COMBAT_STATE (_, inCombat)
-	IncombatWearHelmet.combatState(inCombat)
+function IncombatWearHelmet.EVENT_PLAYER_COMBAT_STATE (_, inCombatB)
+	IncombatWearHelmet.combatState(inCombatB)
 end
 
 function IncombatWearHelmet.EVENT_ZONE_CHANGED (_, _)
@@ -42,7 +42,7 @@ end
 -- Lets fire up the add-on by registering for events
 function IncombatWearHelmet.Initialize()
 	EVENT_MANAGER:RegisterForEvent(ADDON, EVENT_PLAYER_COMBAT_STATE, IWH_combatState)	-- listening when entering/exiting combat
---	EVENT_MANAGER:RegisterForEvent(ADDON, EVENT_ZONE_CHANGED, IWH_combatState)	-- listening when zone changes
+	EVENT_MANAGER:RegisterForEvent(ADDON, EVENT_ZONE_CHANGED, IWH_combatState)	-- listening when zone changes
 	--d( IncombatWearHelmet.Title .. ": initalization done")
 end
 
