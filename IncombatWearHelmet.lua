@@ -34,7 +34,7 @@ end
 
 function IWH_EVENT_ZONE_CHANGED (eventCode, zoneName, subZoneName, newSubzone, zoneId, subZoneId)
 	d( ADDON .. ": IWH_EVENT_ZONE_CHANGED and combat is" .. tostring(IsUnitInCombat("player")))
-	IWH_combatState(	IsUnitInCombat("player")	)
+	IWH_EVENT_PLAYER_COMBAT_STATE(	IsUnitInCombat("player")	)
 end
 
 -- Lets fire up the add-on by registering for events
