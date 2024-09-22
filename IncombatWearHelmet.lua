@@ -2,47 +2,45 @@ local IncombatWearHelmet = {
 	Title = "Incombat wear helmet",	-- Not codereview friendly but enduser friendly version of the add-on's name
 	Author = "Ek1",
 	Description = "Shows helmet when entering combat and hides it when exiting combat",
-	Version = "1043.240917",
+	Version = "1043.240922",
 	License = "CC BY-SA: Creative Commons Attribution-ShareAlike 4.0 International License",
 	www = "https://github.com/Ek1/IncombatWearHelmet"
 }
 local ADDON = "IncombatWearHelmet"	-- Variable used to refer to this add-on. Codereview friendly.
 
 -- Funktion that changes the helmet visibility according to the combat state
-function IWH_combatState (_, inCombatB)
+function IWH_EVENT_PLAYER_COMBAT_STATE (_, inCombatB)
 
 	-- Prepearing hat for all 2^2 state evalutions
 	local activeHat = GetActiveCollectibleByType(COLLECTIBLE_CATEGORY_TYPE_HAT)
 	local cooldownRemaining, cooldownDuration =	GetCollectibleCooldownAndDuration(5002)
 
+	d( ADDON .. ": IWH_EVENT_PLAYER_COMBAT_STATE and incombat? " ..  tostring(inCombatB) )
+
 	if inCombatB then
 		if activeHat == 5002 then
 		-- Character is in combat and hiding helmet (activeHat=0) thus lets unhide it
 			UseCollectible(5002)
---			d( ADDON .. ": incombat and cooldownRemaining: " ..  cooldownRemaining)
+			d( ADDON .. ": hattu PÄÄHÄN")
 		end
 	else
 		if activeHat == 0 then
 		-- Character is not in combat and showing helmet (activeHat=5002) thus lets hide it
       UseCollectible(5002)
---			d( ADDON .. ": out pf combat and cooldownRemaining: " ..  cooldownRemaining)
+			d( ADDON .. ": hattu PÄÄSTÄ")
 		end
 	end
 end
 
--- 100033	EVENT_PLAYER_COMBAT_STATE (number eventCode, boolean inCombat)
-function IncombatWearHelmet.EVENT_PLAYER_COMBAT_STATE (_, inCombatB)
-	IncombatWearHelmet.combatState(inCombatB)
-end
-
-function IncombatWearHelmet.EVENT_ZONE_CHANGED (_, _)
-	IncombatWearHelmet.combatState(	IsUnitInCombat("player")	)
+function IWH_EVENT_ZONE_CHANGED (eventCode, zoneName, subZoneName, newSubzone, zoneId, subZoneId)
+	d( ADDON .. ": IWH_EVENT_ZONE_CHANGED and combat is" .. tostring(IsUnitInCombat("player")))
+	IWH_combatState(	IsUnitInCombat("player")	)
 end
 
 -- Lets fire up the add-on by registering for events
 function IncombatWearHelmet.Initialize()
-	EVENT_MANAGER:RegisterForEvent(ADDON, EVENT_PLAYER_COMBAT_STATE, IWH_combatState)	-- listening when entering/exiting combat
-	EVENT_MANAGER:RegisterForEvent(ADDON, EVENT_ZONE_CHANGED, IWH_combatState)	-- listening when zone changes
+	EVENT_MANAGER:RegisterForEvent(ADDON, EVENT_PLAYER_COMBAT_STATE, IWH_EVENT_PLAYER_COMBAT_STATE)	-- listening when entering/exiting combat
+	EVENT_MANAGER:RegisterForEvent(ADDON, EVENT_ZONE_CHANGED, IWH_EVENT_ZONE_CHANGED)	-- listening when zone changes
 	--d( IncombatWearHelmet.Title .. ": initalization done")
 end
 
