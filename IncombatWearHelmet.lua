@@ -13,27 +13,27 @@ function IWH_EVENT_PLAYER_COMBAT_STATE (_, inCombatB)
 
 	-- Prepearing hat for all 2^2 state evalutions
 	local activeHat = GetActiveCollectibleByType(COLLECTIBLE_CATEGORY_TYPE_HAT)
-	local cooldownRemaining, cooldownDuration =	GetCollectibleCooldownAndDuration(5002)
 
-	d( ADDON .. ": IWH_EVENT_PLAYER_COMBAT_STATE and incombat? " ..  tostring(inCombatB) )
+	local cooldownRemaining, cooldownDuration =	GetCollectibleCooldownAndDuration(5002)
+--	d( ADDON .. ": IWH_EVENT_PLAYER_COMBAT_STATE incombat: " ..  tostring(IsUnitInCombat("player")) .. "  hatCooldown: " .. tostring(cooldownRemaining) )
 
 	if inCombatB then
 		if activeHat == 5002 then
 		-- Character is in combat and hiding helmet (activeHat=0) thus lets unhide it
 			UseCollectible(5002)
-			d( ADDON .. ": hattu PÄÄHÄN")
+--			d( ADDON .. ": helmet ON  hatCooldown: " .. tostring(cooldownRemaining) )
 		end
 	else
 		if activeHat == 0 then
 		-- Character is not in combat and showing helmet (activeHat=5002) thus lets hide it
       UseCollectible(5002)
-			d( ADDON .. ": hattu PÄÄSTÄ")
+--			d( ADDON .. ": helmet OFF  hatCooldown: " .. tostring(cooldownRemaining) )
 		end
 	end
 end
 
 function IWH_EVENT_ZONE_CHANGED (eventCode, zoneName, subZoneName, newSubzone, zoneId, subZoneId)
-	d( ADDON .. ": IWH_EVENT_ZONE_CHANGED and combat is" .. tostring(IsUnitInCombat("player")))
+--	d( ADDON .. ": IWH_EVENT_ZONE_CHANGED and combat is" .. tostring(IsUnitInCombat("player")))
 	IWH_EVENT_PLAYER_COMBAT_STATE(	IsUnitInCombat("player")	)
 end
 
@@ -52,5 +52,5 @@ function IncombatWearHelmet.OnAddOnLoaded(_, addonName)
 	end
 end
 
--- Registering the addon's initializing event when add-on's are loaded 
+-- Registering the addon's initializing event when add-on's are loaded
 EVENT_MANAGER:RegisterForEvent(ADDON, EVENT_ADD_ON_LOADED, IncombatWearHelmet.OnAddOnLoaded)
