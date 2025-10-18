@@ -2,7 +2,7 @@ local IncombatWearHelmet = {
 	Title = "Incombat wear helmet",	-- Not codereview friendly but enduser friendly version of the add-on's name
 	Author = "Ek1",
 	Description = "Shows helmet when entering combat and hides it when exiting combat",
-	Version = "1044.241122",
+	Version = "1047.251018",
 	License = "CC BY-SA: Creative Commons Attribution-ShareAlike 4.0 International License",
 	www = "https://github.com/Ek1/IncombatWearHelmet"
 }
